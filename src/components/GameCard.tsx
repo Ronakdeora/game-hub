@@ -2,6 +2,7 @@ import { Card, Image, HStack } from "@chakra-ui/react";
 import type { Game } from "../hooks/useGames";
 import PlatForms from "./PlatForms";
 import Score from "./Badge";
+import getOptimizedImageUrl from "../services/image-url";
 
 interface Props {
   game: Game;
@@ -10,7 +11,7 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   return (
     <Card.Root overflow="hidden" borderRadius={5}>
-      <Image src={game.background_image} />
+      <Image src={getOptimizedImageUrl(game.background_image)} />
 
       <Card.Body gap="2">
         <Card.Title>

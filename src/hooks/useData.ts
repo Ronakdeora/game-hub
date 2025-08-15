@@ -9,6 +9,7 @@ interface DataResponse<T> {
 const useData = <T>(endpoint: string) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const cancel = new AbortController();
@@ -16,15 +17,17 @@ const useData = <T>(endpoint: string) => {
       .get<DataResponse<T>>(endpoint, { signal: cancel.signal })
       .then((response) => {
         setData(response.data.results);
+        setIsLoading(false);
       })
       .catch((error) => {
         if (error.name === "CanceledError") return;
         setError(error);
+        setIsLoading(false);
       });
     return () => cancel.abort();
   }, [endpoint]);
 
-  return { data, error };
+  return { data, error, isLoading };
 };
 
 export default useData;

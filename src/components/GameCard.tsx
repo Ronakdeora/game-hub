@@ -1,6 +1,7 @@
-import { Card, Image } from "@chakra-ui/react";
+import { Card, Image, HStack } from "@chakra-ui/react";
 import type { Game } from "../hooks/useGames";
 import PlatForms from "./PlatForms";
+import Score from "./Badge";
 
 interface Props {
   game: Game;
@@ -8,42 +9,22 @@ interface Props {
 
 const GameCard = ({ game }: Props) => {
   return (
-    <Card.Root maxW="sm" overflow="hidden" borderRadius={5}>
+    <Card.Root overflow="hidden" borderRadius={5}>
       <Image src={game.background_image} />
 
       <Card.Body gap="2">
         <Card.Title>
           {game.name}{" "}
-          <PlatForms platforms={game.parent_platforms.map((p) => p.platform)} />
+          <HStack justifyContent="space-between">
+            <PlatForms
+              platforms={game.parent_platforms.map((p) => p.platform)}
+            />
+            <Score score={game.metacritic} />
+          </HStack>
         </Card.Title>
         <Card.Description>This Game is Awesome</Card.Description>
       </Card.Body>
-
-      {/* {games.map((game) => (
-        <Text key={game.id}>{game.name}</Text>
-      ))} */}
     </Card.Root>
-
-    // <Card.Root >
-    //   <Image
-    //     src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    //     alt="Green double couch with wooden legs"
-    //   />
-    //   <Card.Body gap="2">
-    //     <Card.Title>Living room Sofa</Card.Title>
-    //     <Card.Description>
-    //       This sofa is perfect for modern tropical spaces, baroque inspired
-    //       spaces.
-    //     </Card.Description>
-    //     <Text textStyle="2xl" fontWeight="medium" letterSpacing="tight" mt="2">
-    //       $450
-    //     </Text>
-    //   </Card.Body>
-    //   <Card.Footer gap="2">
-    //     <Button variant="solid">Buy now</Button>
-    //     <Button variant="ghost">Add to cart</Button>
-    //   </Card.Footer>
-    // </Card.Root>
   );
 };
 

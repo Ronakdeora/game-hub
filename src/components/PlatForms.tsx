@@ -17,6 +17,7 @@ interface Props {
 }
 
 const PlatForms = ({ platforms }: Props) => {
+  // index signature
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     playstation5: FaPlaystation,
@@ -30,9 +31,9 @@ const PlatForms = ({ platforms }: Props) => {
   };
 
   return (
-    <HStack>
+    <HStack justifyContent="start" gap={1}>
       {platforms.map((platform) => (
-        <Image key={platform.id} as={iconMap[platform.slug]} />
+        <Image key={platform.id} as={iconMap[platform.slug]} color="gray.500" />
       ))}
     </HStack>
   );

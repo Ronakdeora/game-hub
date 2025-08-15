@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import apiClient from "../services/api-client";
+import useData from "./useData";
 
 export interface PlatForm {
   id: number;
@@ -13,30 +12,7 @@ export interface Game {
   parent_platforms: { platform: PlatForm }[];
   metacritic: number;
 }
-interface GameResponse {
-  count: number;
-  results: Game[];
-}
 
-const useGames = () => {
-  const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const cancel = new AbortController();
-    apiClient
-      .get<GameResponse>("/games", { signal: cancel.signal })
-      .then((response) => {
-        setGames(response.data.results);
-      })
-      .catch((error) => {
-        if (error.name === "CanceledError") return;
-        setError(error);
-      });
-    return () => cancel.abort();
-  }, []);
-
-  return { games, error };
-};
+const useGames = () => useData<Game>("/games");
 
 export default useGames;

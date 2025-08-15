@@ -3,7 +3,7 @@ import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 
 const ViewGames = () => {
-  const { games, error } = useGames();
+  const { data, error } = useGames();
   return (
     <>
       {error && <div>Error: {error}</div>}
@@ -20,7 +20,7 @@ const ViewGames = () => {
         justifyContent={"center"}
         padding={"10px"}
       >
-        {games.map((game) => (
+        {data.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
       </SimpleGrid>

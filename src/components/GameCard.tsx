@@ -23,7 +23,7 @@ const GameCard = ({ game }: Props) => {
             <Score score={game.metacritic} />
           </HStack>
         </Card.Title>
-        <Card.Description>This Game is Awesome</Card.Description>
+        <Card.Description></Card.Description>
       </Card.Body>
     </Card.Root>
   );

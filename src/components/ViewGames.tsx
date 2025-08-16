@@ -16,7 +16,7 @@ const ViewGames = ({ gameQuery }: Props) => {
   return (
     <>
       <SimpleGrid
-        columns={{ base: 1, md: 2, lg: 3, xl: 5 }}
+        columns={{ base: 1, md: 2, lg: 3, xl: 4 }}
         gap={{ base: 4, md: 6, lg: 8, xl: 10 }}
         gridTemplateColumns={{
           base: "repeat(1, 1fr)",

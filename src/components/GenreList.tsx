@@ -3,9 +3,10 @@ import useGenres, { type Genre } from "../hooks/useGenres";
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenreList = ({ onSelectedGenre }: Props) => {
+const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { data, error, isLoading } = useGenres();
 
   return (
@@ -25,8 +26,10 @@ const GenreList = ({ onSelectedGenre }: Props) => {
                 borderRadius={8}
               />
               <Link
-                fontSize="lg"
-                textDecorationThickness="3px"
+                fontWeight={selectedGenre?.id === genre.id ? "bold" : "normal"}
+                textDecorationThickness={
+                  selectedGenre?.id === genre.id ? "none" : "3px"
+                }
                 textDecorationColor="currentColor"
                 onClick={() => onSelectedGenre(genre)}
                 key={genre.id}

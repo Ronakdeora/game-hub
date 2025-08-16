@@ -1,6 +1,6 @@
 import { Card, Image, HStack } from "@chakra-ui/react";
 import type { Game } from "../hooks/useGames";
-import PlatForms from "./PlatForms";
+import Platforms from "./PlatForms";
 import Score from "./Badge";
 import getOptimizedImageUrl from "../services/image-url";
 
@@ -17,7 +17,7 @@ const GameCard = ({ game }: Props) => {
         <Card.Title>
           {game.name}{" "}
           <HStack justifyContent="space-between">
-            <PlatForms
+            <Platforms
               platforms={game.parent_platforms.map((p) => p.platform)}
             />
             <Score score={game.metacritic} />

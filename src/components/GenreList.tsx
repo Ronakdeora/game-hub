@@ -10,12 +10,13 @@ interface Props {
 const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { data, error, isLoading } = useGenres();
 
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <>
       <Heading fontSize={"2xl"} marginBottom={4}>
         Genres
       </Heading>
-      {error && <div>Error: {error}</div>}
 
       {isLoading && <Spinner color="blue.500" borderWidth="4px" />}
 

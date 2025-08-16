@@ -11,9 +11,10 @@ interface Props {
 const ViewGames = ({ gameQuery }: Props) => {
   const { data, error, isLoading } = useGames(gameQuery);
   const skeleton = [1, 2, 3, 4, 5, 6];
+
+  if (error) return <div>Error: {error}</div>;
   return (
     <>
-      {error && <div>Error: {error}</div>}
       <SimpleGrid
         columns={{ base: 1, md: 2, lg: 3, xl: 5 }}
         gap={{ base: 4, md: 6, lg: 8, xl: 10 }}

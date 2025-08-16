@@ -1,4 +1,4 @@
-import noImage from "../assets/no-image-placeholder.svg";
+import noImage from "../assets/no-image-placeholder.png";
 
 const getOptimizedImageUrl = (url: string) => {
   if (!url) return noImage;

@@ -1,4 +1,4 @@
-import { Image, List, Link, HStack, Spinner } from "@chakra-ui/react";
+import { Image, List, Link, HStack, Spinner, Heading } from "@chakra-ui/react";
 import useGenres, { type Genre } from "../hooks/useGenres";
 import getOptimizedImageUrl from "../services/image-url";
 
@@ -12,6 +12,9 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
 
   return (
     <>
+      <Heading fontSize={"2xl"} marginBottom={4}>
+        Genres
+      </Heading>
       {error && <div>Error: {error}</div>}
 
       {isLoading && <Spinner color="blue.500" borderWidth="4px" />}

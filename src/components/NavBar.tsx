@@ -1,20 +1,16 @@
-import { Flex, Image, Text, Spacer, Center } from "@chakra-ui/react";
+import { Flex, Image, Center } from "@chakra-ui/react";
 import logo from "../assets/react.svg";
 import { ColorModeButton } from "./ui/color-mode";
-const NavBar = () => {
+import SearchBar from "./SearchBar";
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+const NavBar = ({ onSearch }: Props) => {
   return (
-    <Flex padding={"8px"}>
+    <Flex padding={"8px"} gap={4}>
       <Image src={logo} boxSize="40px" objectFit="contain" cursor={"pointer"} />
 
-      <Text
-        fontSize="2xl"
-        fontWeight="bold"
-        alignSelf="center"
-        marginLeft="8px"
-      >
-        Pink
-      </Text>
-      <Spacer />
+      <SearchBar onSearch={onSearch} />
       <Center>
         <ColorModeButton />
       </Center>

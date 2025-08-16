@@ -1,5 +1,6 @@
 import { Image, List, Link, HStack, Spinner } from "@chakra-ui/react";
 import useGenres, { type Genre } from "../hooks/useGenres";
+import getOptimizedImageUrl from "../services/image-url";
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
@@ -20,7 +21,7 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
           <List.Item key={genre.id}>
             <HStack paddingY={2}>
               <Image
-                src={genre.image_background}
+                src={getOptimizedImageUrl(genre.image_background)}
                 boxSize="32px"
                 objectFit="cover"
                 borderRadius={8}

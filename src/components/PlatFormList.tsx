@@ -1,6 +1,7 @@
 import { Button, Menu, MenuItem, Portal } from "@chakra-ui/react";
 import type { Platform } from "../hooks/usePlatforms";
 import usePlatforms from "../hooks/usePlatforms";
+import { BsChevronDown } from "react-icons/bs";
 
 interface Props {
   onSelectedPlatform: (platform: Platform) => void;
@@ -19,7 +20,9 @@ const PlatformList = ({ onSelectedPlatform, selectedPlatform }: Props) => {
       >
         <Button variant="outline">
           {selectedPlatform?.name || "Platforms"}
-          <span style={{ marginLeft: "0.5rem" }}>▼</span>
+          <span style={{ marginLeft: "0.5rem", marginTop: "0.15rem" }}>
+            <BsChevronDown />
+          </span>
         </Button>
       </Menu.Trigger>
       <Portal>

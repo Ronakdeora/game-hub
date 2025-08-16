@@ -17,6 +17,7 @@ const useData = <T>(
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(
     () => {
@@ -29,6 +30,7 @@ const useData = <T>(
         })
         .then((response) => {
           setData(response.data.results);
+          setCount(response.data.count);
           setIsLoading(false);
         })
         .catch((error) => {
@@ -41,7 +43,7 @@ const useData = <T>(
     dep ? dep : []
   );
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, count };
 };
 
 export default useData;

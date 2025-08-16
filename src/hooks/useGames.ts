@@ -8,6 +8,7 @@ export interface Game {
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
+  count: number;
 }
 
 const useGames = (gameQuery: GameQuery) =>
@@ -19,6 +20,8 @@ const useGames = (gameQuery: GameQuery) =>
         parent_platforms: gameQuery.platform?.id,
         ordering: gameQuery.sort?.slug,
         search: gameQuery.searchText,
+        page: gameQuery.page || 1,
+        page_size: gameQuery.pageSize || 15,
       },
     },
     [gameQuery]

@@ -1,15 +1,17 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { Flex, SimpleGrid } from "@chakra-ui/react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import SkeletonCard from "./SkeletonCard";
 import type { GameQuery } from "../App";
+import PageBar from "./PageBar";
 
 interface Props {
   gameQuery: GameQuery;
+  onPageChange: (page: number, pageSize: number) => void;
 }
 
-const ViewGames = ({ gameQuery }: Props) => {
-  const { data, error, isLoading } = useGames(gameQuery);
+const ViewGames = ({ gameQuery, onPageChange }: Props) => {
+  const { data, error, isLoading, count } = useGames(gameQuery);
   const skeleton = [1, 2, 3, 4, 5, 6];
 
   if (error) return <div>Error: {error}</div>;
@@ -36,6 +38,10 @@ const ViewGames = ({ gameQuery }: Props) => {
         {!isLoading &&
           data.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
+
+      <Flex justifyContent={"center"} paddingY={3}>
+        <PageBar count={count} onPageChange={onPageChange} />
+      </Flex>
     </>
   );
 };

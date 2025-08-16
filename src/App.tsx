@@ -13,6 +13,8 @@ export interface GameQuery {
   platform: Platform | null;
   sort: Sort | null;
   searchText?: string;
+  page?: number;
+  pageSize?: number;
 }
 
 function App() {
@@ -59,7 +61,12 @@ function App() {
               onSelectedSort={(sort) => setGameQuery({ ...gameQuery, sort })}
             />
           </Flex>
-          <ViewGames gameQuery={gameQuery} />
+          <ViewGames
+            gameQuery={gameQuery}
+            onPageChange={(page, pageSize) =>
+              setGameQuery({ ...gameQuery, page, pageSize })
+            }
+          />
         </GridItem>
       </Grid>
     </>

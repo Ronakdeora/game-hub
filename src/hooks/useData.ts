@@ -1,26 +1,20 @@
-import apiClient from "../services/api-client";
 import type { AxiosRequestConfig } from "axios";
-import { useQuery } from "@tanstack/react-query";
-
-interface DataResponse<T> {
-  count: number;
-  results: T[];
-}
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import APIClient from "../services/api-client";
 
 const useData = <T>(
   endpoint: string,
   queryKey: unknown[],
   requestedConfig?: AxiosRequestConfig
-) =>
-  useQuery<{ results: T[]; count: number }, Error>({
+) => {
+  const apiClient = new APIClient<T>(endpoint);
+
+  return useQuery<{ results: T[]; count: number }, Error>({
     queryKey,
-    queryFn: async () => {
-      const res = await apiClient.get<DataResponse<T>>(
-        endpoint,
-        requestedConfig
-      );
-      return { results: res.data.results, count: res.data.count };
-    },
+    queryFn: () => apiClient.getAll(requestedConfig).then((res) => res.data),
+    staleTime: 1000 * 60 * 5, // 2 minutes
+    placeholderData: keepPreviousData,
   });
+};
 
 export default useData;

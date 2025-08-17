@@ -12,19 +12,15 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) =>
-  useData<Game>(
-    `/games`,
-    {
-      params: {
-        genres: gameQuery.genre?.id,
-        parent_platforms: gameQuery.platform?.id,
-        ordering: gameQuery.sort?.slug,
-        search: gameQuery.searchText,
-        page: gameQuery.page || 1,
-        page_size: gameQuery.pageSize || 15,
-      },
+  useData<Game>(`/games`, [gameQuery], {
+    params: {
+      genres: gameQuery.genre?.id,
+      parent_platforms: gameQuery.platform?.id,
+      ordering: gameQuery.sort?.slug,
+      search: gameQuery.searchText,
+      page: gameQuery.page || 1,
+      page_size: gameQuery.pageSize || 15,
     },
-    [gameQuery]
-  );
+  });
 
 export default useGames;

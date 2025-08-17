@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PlatformList = ({ onSelectedPlatform, selectedPlatform }: Props) => {
-  const { data, error } = usePlatforms();
+  const { data: { results = [] } = {}, error } = usePlatforms();
   if (error) return null;
   return (
     <Menu.Root>
@@ -28,7 +28,7 @@ const PlatformList = ({ onSelectedPlatform, selectedPlatform }: Props) => {
       <Portal>
         <Menu.Positioner>
           <Menu.Content minW="10rem">
-            {data.map((platform) => (
+            {results?.map((platform) => (
               <MenuItem
                 value={platform.slug}
                 key={platform.id}

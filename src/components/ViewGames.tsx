@@ -11,10 +11,14 @@ interface Props {
 }
 
 const ViewGames = ({ gameQuery, onPageChange }: Props) => {
-  const { data, error, isLoading, count } = useGames(gameQuery);
+  const {
+    data: { results = [], count = 0 } = {},
+    error,
+    isLoading,
+  } = useGames(gameQuery);
   const skeleton = [1, 2, 3, 4, 5, 6];
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <>
       <SimpleGrid
@@ -36,7 +40,7 @@ const ViewGames = ({ gameQuery, onPageChange }: Props) => {
           ))}
         {/* loading Games */}
         {!isLoading &&
-          data.map((game) => <GameCard key={game.id} game={game} />)}
+          results?.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
 
       <Flex justifyContent={"center"} paddingY={3}>

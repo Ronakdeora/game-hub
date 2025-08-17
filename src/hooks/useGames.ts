@@ -1,4 +1,4 @@
-import type { GameQuery } from "../App";
+import useGameQueryStore from "../store";
 import useData from "./useData";
 import type { Platform } from "./usePlatforms";
 
@@ -11,11 +11,12 @@ export interface Game {
   count: number;
 }
 
-const useGames = (gameQuery: GameQuery) => {
+const useGames = () => {
+  const { gameQuery } = useGameQueryStore();
   const params = {
-    genres: gameQuery.genre?.id,
-    parent_platforms: gameQuery.platform?.id,
-    ordering: gameQuery.sort?.slug,
+    genres: gameQuery.genreId,
+    parent_platforms: gameQuery.platformId || undefined,
+    ordering: gameQuery.sort,
     search: gameQuery.searchText,
     page: gameQuery.page || 1,
     page_size: gameQuery.pageSize || 15,

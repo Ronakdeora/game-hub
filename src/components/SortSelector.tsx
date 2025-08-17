@@ -1,11 +1,7 @@
 import { Menu, Button, Portal, MenuItem } from "@chakra-ui/react";
 
 import { BsChevronDown } from "react-icons/bs";
-
-interface Props {
-  onSelectedSort: (sort: Sort) => void;
-  selectedSort: Sort | null;
-}
+import useGameQueryStore from "../store";
 
 export interface Sort {
   id: number;
@@ -13,7 +9,10 @@ export interface Sort {
   slug: string;
 }
 
-const SortSelector = ({ onSelectedSort, selectedSort }: Props) => {
+const SortSelector = () => {
+  const sort = useGameQueryStore((s) => s.gameQuery.sort);
+  const setSort = useGameQueryStore((s) => s.setSort);
+
   const data: Sort[] = [
     { id: 1, name: "Name", slug: "name" },
     { id: 2, name: "Released", slug: "released" },
@@ -31,7 +30,7 @@ const SortSelector = ({ onSelectedSort, selectedSort }: Props) => {
         _active={{ boxShadow: "none", outline: "none", bg: "none" }}
       >
         <Button variant="outline">
-          Order By : {selectedSort?.name || "Relevance"}
+          Order By : {data.find((s) => s.slug === sort)?.name || "Relevance"}
           <span style={{ marginLeft: "0.5rem", marginTop: "0.15rem" }}>
             <BsChevronDown />
           </span>
@@ -44,7 +43,7 @@ const SortSelector = ({ onSelectedSort, selectedSort }: Props) => {
               <MenuItem
                 value={sort.slug}
                 key={sort.id}
-                onClick={() => onSelectedSort(sort)}
+                onClick={() => setSort(sort.slug)}
               >
                 {sort.name}
               </MenuItem>

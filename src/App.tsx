@@ -1,24 +1,10 @@
-import { Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import ViewGames from "./components/ViewGames";
 import GenreList from "./components/GenreList";
-import type { Genre } from "./hooks/useGenres";
-import { useState } from "react";
-import type { Platform } from "./hooks/usePlatforms";
-import PlatformList from "./components/PlatFormList";
-import SortSelector, { type Sort } from "./components/SortSelector";
-
-export interface GameQuery {
-  genre: Genre | null;
-  platform: Platform | null;
-  sort: Sort | null;
-  searchText?: string;
-  page?: number;
-  pageSize?: number;
-}
+import ViewGamesHeading from "./components/ViewGamesHeading";
 
 function App() {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
   return (
     <>
       <Grid
@@ -33,40 +19,14 @@ function App() {
         }}
       >
         <GridItem area="nav">
-          <NavBar
-            onSearch={(searchText) =>
-              setGameQuery({ ...gameQuery, searchText })
-            }
-          />
+          <NavBar />
         </GridItem>
         <GridItem area="aside" hideBelow="lg" paddingX={4}>
-          <GenreList
-            selectedGenre={gameQuery.genre}
-            onSelectedGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
-          />
+          <GenreList />
         </GridItem>
         <GridItem area="main" padding={"10px"}>
-          <Heading fontSize={"3xl"} marginY={8} fontWeight="bold">
-            {gameQuery.genre?.name || "All Genres"} Games
-          </Heading>
-          <Flex gap={4}>
-            <PlatformList
-              selectedPlatform={gameQuery.platform}
-              onSelectedPlatform={(platform) =>
-                setGameQuery({ ...gameQuery, platform })
-              }
-            />
-            <SortSelector
-              selectedSort={gameQuery.sort}
-              onSelectedSort={(sort) => setGameQuery({ ...gameQuery, sort })}
-            />
-          </Flex>
-          <ViewGames
-            gameQuery={gameQuery}
-            onPageChange={(page, pageSize) =>
-              setGameQuery({ ...gameQuery, page, pageSize })
-            }
-          />
+          <ViewGamesHeading />
+          <ViewGames />
         </GridItem>
       </Grid>
     </>

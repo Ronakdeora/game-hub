@@ -11,16 +11,18 @@ export interface Game {
   count: number;
 }
 
-const useGames = (gameQuery: GameQuery) =>
-  useData<Game>(`/games`, [gameQuery], {
-    params: {
-      genres: gameQuery.genre?.id,
-      parent_platforms: gameQuery.platform?.id,
-      ordering: gameQuery.sort?.slug,
-      search: gameQuery.searchText,
-      page: gameQuery.page || 1,
-      page_size: gameQuery.pageSize || 15,
-    },
+const useGames = (gameQuery: GameQuery) => {
+  const params = {
+    genres: gameQuery.genre?.id,
+    parent_platforms: gameQuery.platform?.id,
+    ordering: gameQuery.sort?.slug,
+    search: gameQuery.searchText,
+    page: gameQuery.page || 1,
+    page_size: gameQuery.pageSize || 15,
+  };
+  return useData<Game>(`/games`, ["games", params], {
+    params: params,
   });
+};
 
 export default useGames;
